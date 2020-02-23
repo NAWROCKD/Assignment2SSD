@@ -2,8 +2,9 @@
 <?php include("lib/auth.php") ?>
 <?php
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$author = $_SESSION['id'];	
-		add_article($dbconn, $_POST['title'], $_POST['content'], $author);
+		$author = $_SESSION['id'];
+		
+		add_article($dbconn, htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8'), htmlspecialchars($_POST['content'], ENT_QUOTES, 'UTF-8'), $author);
 		Header ("Location: /");		
 	}
 ?>
@@ -24,6 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<div class="form-group">
 	<label for="inputTitle" class="sr-only">Post Title</label>
 	<input type="text" id="inputTitle" placeholder="Title" required autofocus class="form-control" name='title'>
+
 	</div>
 	<div class="form-group">
 	<label for="inputContent" class="sr-only">Post Content</label>

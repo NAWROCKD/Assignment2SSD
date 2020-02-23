@@ -24,7 +24,7 @@
 	<?php include("templates/contentstart.php"); ?>
 
 	<h3 class="pb-4 mb-4 font-italic border-bottom">
-        Off the dome. Here we go ... 
+        ONthe dome. Here we go ... 
       	</h3>
 
 	<div class="blog-post">
