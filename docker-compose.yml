@@ -3,12 +3,18 @@ version: '2'
 services:
 
   nginx:
-    image: nginx:latest
+    image: nginx:alpine
+    container_name: assignment2ssd
+   
+    tty: true
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./code:/code
       - ./site.conf:/etc/nginx/conf.d/site.conf
+      - ./nginx/localhost.crt:/etc/nginx/certs/localhost.crt
+      - ./nginx/localhost.key:/etc/nginx/certs/localhost.key
     links:
       - php
 
@@ -38,4 +44,3 @@ services:
     restart: always
     ports:
       - "8080:8080"
-
