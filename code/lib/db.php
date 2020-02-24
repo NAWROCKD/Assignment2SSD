@@ -15,6 +15,7 @@ function run_query($dbconn, $query) {
 	if ($debug) {
 		echo "$query<br>";
 	}
+	
 	$result = pg_query($dbconn, $query);
 	if ($result == False and $debug) {
 		echo "Query failed<br>";
@@ -72,22 +73,25 @@ function add_article($dbconn, $title, $content, $author) {
 		articles
 		(aid, title, author, stub, content) 
 		VALUES
-		('$aid', '$title', $author, '$stub', '$content')";
-	return run_query($dbconn, $query);
+		($1, $2, $3, $4, $5)";
+	return pg_query_params ($dbconn,$query ,array($aid,$title,$author,$stub,$content)); 
+	#return run_query($dbconn, $query);
 }
 
 function update_article($dbconn, $title, $content, $aid) {
 	$query=
 		"UPDATE articles
 		SET 
-		title='$title',
-		content='$content'
+		title=$1,
+		content=$2
 		WHERE
-		aid='$aid'";
-	return run_query($dbconn, $query);
+		aid=$3";
+	return pg_query_params ($dbconn,$query ,array($title,$content,$aid)); 
+ #return run_query($dbconn, $query);
 }
-
+ 
 function authenticate_user($dbconn, $username, $password) {
+	
 	$query=
 		"SELECT
 		authors.id as id,
@@ -97,10 +101,12 @@ function authenticate_user($dbconn, $username, $password) {
 		FROM
 		authors
 		WHERE
-		username='".$_POST['username']."'
+		username= $1
 		AND
-		password='".$_POST['password']."'
+		password= $2
 		LIMIT 1";
-	return run_query($dbconn, $query);
+
+return pg_query_params ($dbconn,$query ,array($_POST['username'],$_POST['password'] )) ; 
+
 }	
 ?>
