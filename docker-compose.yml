@@ -32,6 +32,8 @@ services:
     restart: always
     ports:
       - "5432:5432"
+    command: ["postgres", "-c", "log_statement=all"]
+  
     volumes:
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
       - ./schema.sql:/schema.sql
