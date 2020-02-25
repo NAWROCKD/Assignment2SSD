@@ -61,8 +61,9 @@ return run_query($dbconn, $query);
 }
 
 function delete_article($dbconn, $aid) {
-	$query= "DELETE FROM articles WHERE aid='".$aid."'";
+	$query= "DELETE FROM articles WHERE aid='".htmlspecialchars($aid, ENT_QUOTES, 'UTF-8')."'";
 	return run_query($dbconn, $query);
+
 }
 
 function add_article($dbconn, $title, $content, $author) {
